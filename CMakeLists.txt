@@ -39,7 +39,7 @@ catkin_package(
 include_directories(
  include 
  ${catkin_INCLUDE_DIRS}
-"/usr/local/include/"
+ # "/usr/local/include/" Ez teljesen felesleges. Jobb esetben 
 )
 link_directories("/usr/local/lib/")
 
@@ -63,7 +63,7 @@ link_directories("/usr/local/lib/")
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(duronode src/duro.cpp src/utm.cpp)
+add_executable(duronode src/duro_node.cpp src/utm.cpp src/duro_gps_driver.cpp)
 #add_executable(libsbp_tcp_example src/tcp_example.c)
 
 ## Rename C++ executable without prefix
