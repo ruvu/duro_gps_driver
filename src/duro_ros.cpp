@@ -77,7 +77,6 @@ void DuroROS::pos_ll_cov_callback(u16 /*sender_id*/, u8 /*len*/, u8 msg[])
     (void)msg;
     msg_pos_llh_t *lat_long_msg = (msg_pos_llh_t *)msg;
 
-    sensor_msgs::NavSatFix fix;
     std_msgs::String status_msg;
 
     int ins_mode = (lat_long_msg->flags & INS_MODE_MASK) >> INS_MODE_POSITION;
@@ -85,9 +84,9 @@ void DuroROS::pos_ll_cov_callback(u16 /*sender_id*/, u8 /*len*/, u8 msg[])
 
     if ( fix_mode != fix_modes::INVALID )
     {
+        sensor_msgs::NavSatFix fix;
         fix.header.stamp = ros::Time::now();
         fix.header.frame_id = gps_receiver_frame_id_;
-
         fix.latitude = lat_long_msg->lat;
         fix.longitude = lat_long_msg->lon;
         fix.altitude = lat_long_msg->height;
@@ -144,9 +143,9 @@ void DuroROS::pos_ll_cov_callback(u16 /*sender_id*/, u8 /*len*/, u8 msg[])
                 status_msg.data = "Not implemented";
                 break;
         }
+        nav_fix_pub_.publish(fix);
     }
     status_string_pub_.publish(status_msg);
-    nav_fix_pub_.publish(fix);
 }
 
 void DuroROS::imu_callback(u16 /*sender_id*/, u8 /*len*/, u8 msg[])
