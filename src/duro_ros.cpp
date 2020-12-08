@@ -60,11 +60,7 @@ void DuroROS::setup_socket()
 
 s32 DuroROS::socket_read(u8 *buff, u32 n)
 {
-    s32 result;
-
-    result = read(socket_desc_, buff, n);
-
-    return result;
+    return read(socket_desc_, buff, n);
 }
 
 void DuroROS::tick()
@@ -74,7 +70,6 @@ void DuroROS::tick()
 
 void DuroROS::pos_ll_cov_callback(u16 /*sender_id*/, u8 /*len*/, u8 msg[])
 {
-    (void)msg;
     msg_pos_llh_t *lat_long_msg = (msg_pos_llh_t *)msg;
 
     std_msgs::String status_msg;
@@ -150,7 +145,6 @@ void DuroROS::pos_ll_cov_callback(u16 /*sender_id*/, u8 /*len*/, u8 msg[])
 
 void DuroROS::imu_callback(u16 /*sender_id*/, u8 /*len*/, u8 msg[])
 {
-    (void)msg;
     msg_imu_raw_t *imumsg = (msg_imu_raw_t *)msg;
     sensor_msgs::Imu imu_msg_ros;
     imu_msg_ros.header.stamp = ros::Time::now();
@@ -171,7 +165,6 @@ void DuroROS::imu_callback(u16 /*sender_id*/, u8 /*len*/, u8 msg[])
 
 void DuroROS::mag_callback(u16 /*sender_id*/, u8 /*len*/, u8 msg[])
 {
-    (void)msg;
     msg_mag_raw_t *magmsg = (msg_mag_raw_t *)msg;
     sensor_msgs::MagneticField mag_ros_msg;
     mag_ros_msg.header.stamp = ros::Time::now();
@@ -180,5 +173,6 @@ void DuroROS::mag_callback(u16 /*sender_id*/, u8 /*len*/, u8 msg[])
     mag_ros_msg.magnetic_field.x = magmsg->mag_x * 1e-6;
     mag_ros_msg.magnetic_field.y = magmsg->mag_y * 1e-6;
     mag_ros_msg.magnetic_field.z = magmsg->mag_z * 1e-6;
+
     mag_pub_.publish(mag_ros_msg);
 }
