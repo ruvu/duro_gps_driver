@@ -57,9 +57,6 @@ enum INS_MODE
 class DuroROS
 {
 private:
-    ros::NodeHandle nh_;
-    ros::NodeHandle nh_private_;
-
     ros::Publisher nav_fix_pub_;
     ros::Publisher imu_pub_;
     ros::Publisher mag_pub_;

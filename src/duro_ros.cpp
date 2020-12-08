@@ -9,20 +9,20 @@
 
 
 DuroROS::DuroROS():
-    nh_(),
-    nh_private_("~"),
     socket_desc_(-1)
 {
-    nav_fix_pub_ = nh_.advertise<sensor_msgs::NavSatFix>("fix", 100, true);
-    mag_pub_ = nh_.advertise<sensor_msgs::MagneticField>("mag", 100);
-    imu_pub_ = nh_.advertise<sensor_msgs::Imu>("imu", 100);
-    status_flag_pub_ = nh_.advertise<std_msgs::UInt8>("status_flag", 100, true);
-    status_string_pub_ = nh_.advertise<std_msgs::String>("status_string", 100, true);
+    ros::NodeHandle nh;
+    nav_fix_pub_ = nh.advertise<sensor_msgs::NavSatFix>("fix", 100, true);
+    mag_pub_ = nh.advertise<sensor_msgs::MagneticField>("mag", 100);
+    imu_pub_ = nh.advertise<sensor_msgs::Imu>("imu", 100);
+    status_flag_pub_ = nh.advertise<std_msgs::UInt8>("status_flag", 100, true);
+    status_string_pub_ = nh.advertise<std_msgs::String>("status_string", 100, true);
 
-    nh_private_.param<std::string>("ip_address", tcp_ip_address_, "192.168.0.222");
-    nh_private_.param<int>("ip_port", tcp_ip_port_, 55555);
-    nh_private_.param<std::string>("gps_receiver_frame_id", gps_receiver_frame_id_, "gps_receiver_frame");
-    nh_private_.param<std::string>("imu_frame_id", imu_frame_id_, gps_receiver_frame_id_);
+    ros::NodeHandle nh_private;
+    nh_private.param<std::string>("ip_address", tcp_ip_address_, "192.168.0.222");
+    nh_private.param<int>("ip_port", tcp_ip_port_, 55555);
+    nh_private.param<std::string>("gps_receiver_frame_id", gps_receiver_frame_id_, "gps_receiver_frame");
+    nh_private.param<std::string>("imu_frame_id", imu_frame_id_, gps_receiver_frame_id_);
 
     ROS_INFO_STREAM("Using ip:port " << tcp_ip_address_ << ":" << tcp_ip_port_);
 
