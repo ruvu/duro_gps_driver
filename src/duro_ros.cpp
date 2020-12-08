@@ -50,7 +50,7 @@ void DuroROS::setup_socket()
     memset(&server_, '0', sizeof(server_));
     server_.sin_addr.s_addr = inet_addr(tcp_ip_address_.c_str());
     server_.sin_family = AF_INET;
-    server_.sin_port = htons(55555);
+    server_.sin_port = htons(tcp_ip_port_);
 
     if (connect(socket_desc_, (struct sockaddr *)&server_, sizeof(server_)) < 0)
     {
