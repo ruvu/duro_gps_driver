@@ -174,6 +174,9 @@ void DuroROS::mag_callback(u16 /*sender_id*/, u8 /*len*/, u8 msg[])
     (void)msg;
     msg_mag_raw_t *magmsg = (msg_mag_raw_t *)msg;
     sensor_msgs::MagneticField mag_ros_msg;
+    mag_ros_msg.header.stamp = ros::Time::now();
+    mag_ros_msg.header.frame_id = imu_frame_id_;
+
     mag_ros_msg.magnetic_field.x = magmsg->mag_x * 1e-6;
     mag_ros_msg.magnetic_field.y = magmsg->mag_y * 1e-6;
     mag_ros_msg.magnetic_field.z = magmsg->mag_z * 1e-6;
